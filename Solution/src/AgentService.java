@@ -8,9 +8,18 @@ import java.util.List;
 import java.util.Map;
 
 public class AgentService {
+
+    private static AgentService instance;
+
+    public static AgentService getInstance(){
+        if (instance == null) {
+            instance = new AgentService();
+        }
+        return instance;
+    }
     private Map<String, Agent> agents;
 
-    public AgentService() {
+    private AgentService() {
         agents = new HashMap<>();
     }
 
@@ -32,10 +41,10 @@ public class AgentService {
         System.out.println("Agents Work History:");
         for (Agent agent : agents.values()) {
             System.out.println("Agent: " + agent.getName() + " (" + agent.getEmail() + ")");
-            if (agent.getAssignedIssues().isEmpty()) {
+            if (agent.getOverallAssignedIssues().isEmpty()) {
                 System.out.println("  No issues assigned yet.");
             } else {
-                for (Issue issue : agent.getAssignedIssues()) {
+                for (Issue issue : agent.getOverallAssignedIssues()) {
                     System.out.println("  IssueId: " + issue.getIssueId() + ", Status: " + issue.getStatus() + ", Subject: " + issue.getSubject());
                 }
             }

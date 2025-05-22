@@ -10,6 +10,7 @@ public class Agent {
     private List<IssueType> expertise;
     private List<Issue> assignedIssues;
     private List<Issue> resolvedIssues;
+    private List<Issue> overallAssignedIssues;
 
     public Agent(String email, String name, List<IssueType>expertise) {
         this.email = email;
@@ -17,6 +18,7 @@ public class Agent {
         this.expertise = expertise;
         resolvedIssues = new ArrayList<>();
         assignedIssues = new ArrayList<>();
+        overallAssignedIssues = new ArrayList<>();
     }
 
     public boolean isAvailable() {
@@ -61,5 +63,13 @@ public class Agent {
 
     public void setResolvedIssues(List<Issue> resolvedIssues) {
         this.resolvedIssues = resolvedIssues;
+    }
+
+    public List<Issue> getOverallAssignedIssues() {
+        return overallAssignedIssues;
+    }
+
+    public void setOverallAssignedIssues(List<Issue> overallAssignedIssues) {
+        this.overallAssignedIssues = overallAssignedIssues;
     }
 }

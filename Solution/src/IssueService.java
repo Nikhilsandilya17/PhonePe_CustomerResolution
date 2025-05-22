@@ -6,6 +6,7 @@ import model.Transaction;
 import model.TransactionStatus;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 public class IssueService {
 
@@ -44,28 +45,28 @@ public class IssueService {
 
     private void changeIssueStatusAndAssignToAgent(Agent agent, Issue issue) {
         agent.getAssignedIssues().add(issue);
+        issue.setAssignedAgent(agent);
+        agent.getOverallAssignedIssues().add(issue);
         issue.setStatus(IssueStatus.ASSIGNED);
     }
 
 
-    public List<Issue> getIssuesByEmail(String email) {
-        List<Issue> issuesList = new ArrayList<>();
+    public List<Issue> filterIssues(Predicate<Issue> condition) {
+        List<Issue> filteredIssues = new ArrayList<>();
         for (Issue issue : issues.values()) {
-            if(email.equals(issue.getCustomerEmail())){
-                issuesList.add(issue);
+            if (condition.test(issue)) {
+                filteredIssues.add(issue);
             }
         }
-        return issuesList;
+        return filteredIssues;
+    }
+
+    public List<Issue> getIssuesByEmail(String email) {
+        return filterIssues(issue -> email.equals(issue.getCustomerEmail()));
     }
 
     public List<Issue> getIssuesByIssueType(IssueType issueType) {
-        List<Issue> issuesList = new ArrayList<>();
-        for (Issue issue : issues.values()) {
-            if(issueType.equals(issue.getType())){
-                issuesList.add(issue);
-            }
-        }
-        return issuesList;
+        return filterIssues(issue -> issueType.equals(issue.getType()));
     }
 
     public void updateIssue(Issue issue, IssueStatus status, String resolution) {
@@ -80,6 +81,13 @@ public class IssueService {
     public void resolveIssue(Issue issue, String resolution) {
         issue.setStatus(IssueStatus.RESOLVED);
         issue.setResolution(resolution);
+        setResolvedIssues(issue);
         System.out.println("Issue: "+issue.getIssueId()+ " marked resolved");
+    }
+
+    private void setResolvedIssues(Issue issue) {
+        Agent agent = issue.getAssignedAgent();
+        agent.getAssignedIssues().remove(issue);
+        agent.getResolvedIssues().add(issue);
     }
 }

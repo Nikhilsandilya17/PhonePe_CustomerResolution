@@ -7,7 +7,7 @@ import java.util.List;
 
 public class InterviewDemo {
     public static void main(String[] args) {
-        AgentService agentService = new AgentService();
+        AgentService agentService = AgentService.getInstance();
         IssueService issueService = new IssueService(agentService);
 
         // Add Agents
