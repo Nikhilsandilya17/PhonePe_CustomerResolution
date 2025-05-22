@@ -10,6 +10,9 @@ import java.util.function.Predicate;
 
 public class IssueService {
 
+    private static final String ADDED_TO_WAITLIST = "added to waitlist of :";
+    private static final String ASSIGNED_TO_AGENT = "assigned to agent :";
+
     private Map<String, Issue> issues = new HashMap<>();
     private AgentService agentService;
 
@@ -32,13 +35,11 @@ public class IssueService {
 
         for (Agent agent : agents) {
             if (agent.getExpertise().contains(issue.getType())) {
-                if (agent.isAvailable()) {
-                    changeIssueStatusAndAssignToAgent(agent, issue);
-                    System.out.println("Issue " + issueId + " assigned to agent : " + agent.getName());
-                } else {
-                    changeIssueStatusAndAssignToAgent(agent, issue);
-                    System.out.println("Issue " + issueId + " added to waitlist of : " + agent.getName());
-                }
+                changeIssueStatusAndAssignToAgent(agent, issue);
+                String message = agent.isAvailable()
+                        ? ASSIGNED_TO_AGENT
+                        : ADDED_TO_WAITLIST;
+                System.out.println("Issue " + issueId + " " + message + agent.getName());
             }
         }
     }
@@ -73,7 +74,7 @@ public class IssueService {
         if (issue != null) {
             issue.setStatus(status);
             issue.setResolution(resolution);
-            System.out.println("Issue: "+ issue.getIssueId() + " status updated to "+ status);
+            System.out.println("Issue: " + issue.getIssueId() + " status updated to " + status);
         }
     }
 
@@ -82,7 +83,7 @@ public class IssueService {
         issue.setStatus(IssueStatus.RESOLVED);
         issue.setResolution(resolution);
         setResolvedIssues(issue);
-        System.out.println("Issue: "+issue.getIssueId()+ " marked resolved");
+        System.out.println("Issue: " + issue.getIssueId() + " marked " + issue.getStatus());
     }
 
     private void setResolvedIssues(Issue issue) {
