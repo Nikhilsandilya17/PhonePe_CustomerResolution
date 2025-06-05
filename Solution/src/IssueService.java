@@ -88,6 +88,7 @@ public class IssueService {
 
     private void setResolvedIssues(Issue issue) {
         Agent agent = issue.getAssignedAgent();
+        issue.setAssignedAgent(null);
         agent.getAssignedIssues().remove(issue);
         agent.getResolvedIssues().add(issue);
     }
