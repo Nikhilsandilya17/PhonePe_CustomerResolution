@@ -1,5 +1,8 @@
 package model;
 
+import enums.IssueStatus;
+import enums.IssueType;
+
 public class Issue {
     private String issueId;
     private Transaction transaction;

@@ -1,5 +1,7 @@
 package model;
 
+import enums.IssueType;
+
 import java.util.ArrayList;
 import java.util.List;
 

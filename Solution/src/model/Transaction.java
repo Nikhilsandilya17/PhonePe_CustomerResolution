@@ -1,5 +1,7 @@
 package model;
 
+import enums.TransactionStatus;
+
 public class Transaction {
     String transactionId;
     TransactionStatus status;
