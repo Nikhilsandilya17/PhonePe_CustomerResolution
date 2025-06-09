@@ -12,33 +12,25 @@ import java.util.stream.Collectors;
 
 public class IssueRepositoryImpl implements IssueRepository {
 
-    private final Map<String, Issue> issues = new HashMap<>();
+    private final Map<String, Issue> issues;
 
-    private IssueRepositoryImpl() {
+    public IssueRepositoryImpl() {
+        this.issues = new HashMap<>();
     }
 
     @Override
-    public void save(Issue issue) {
+    public void createIssue(Issue issue) {
+        System.out.println("Issue " + issue.getIssueId() + " created for transaction: " + issue.getTransaction().getTransactionId());
         issues.put(issue.getIssueId(), issue);
     }
 
     @Override
-    public Issue findById(String issueId) {
+    public Issue findIssueById(String issueId) {
         return issues.get(issueId);
     }
 
     @Override
-    public List<Issue> findByEmail(String email) {
-        return issues.values().stream().filter(issue -> email.equals(issue.getCustomerEmail())).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Issue> findByType(IssueType type) {
-        return issues.values().stream().filter(issue -> type.equals(issue.getType())).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Issue> findAll() {
+    public List<Issue> getAllIssues() {
         return new ArrayList<>(issues.values());
     }
 }

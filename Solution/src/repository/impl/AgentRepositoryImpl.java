@@ -6,20 +6,21 @@ import repository.AgentRepository;
 import java.util.*;
 
 public class AgentRepositoryImpl implements AgentRepository {
-    private final Map<String, Agent> agents = new HashMap<>();
+    private final Map<String, Agent> agents;
 
-    @Override
-    public void save(Agent agent) {
-        agents.put(agent.getEmail(), agent);
+    public AgentRepositoryImpl() {
+        this.agents = new HashMap<>();
     }
 
     @Override
-    public List<Agent> findAll() {
+    public void addAgent(Agent agent) {
+        agents.put(agent.getEmail(), agent);
+        System.out.println("Agent: " + agent.getName() + " Created");
+    }
+
+    @Override
+    public List<Agent> getAllAgents() {
         return new ArrayList<>(agents.values());
     }
 
-    @Override
-    public Agent findByEmail(String email) {
-        return agents.get(email);
-    }
 }

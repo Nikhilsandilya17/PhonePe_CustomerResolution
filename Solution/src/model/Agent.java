@@ -3,24 +3,25 @@ package model;
 import enums.IssueType;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class Agent {
-
     private String email;
     private String name;
     private List<IssueType> expertise;
-    private List<Issue> assignedIssues;
+    private Queue<Issue> assignedIssues;
     private List<Issue> resolvedIssues;
-    private List<Issue> overallAssignedIssues;
+    private List<Issue> assignedIssuesHistory;
 
     public Agent(String email, String name, List<IssueType>expertise) {
         this.email = email;
         this.name = name;
         this.expertise = expertise;
         resolvedIssues = new ArrayList<>();
-        assignedIssues = new ArrayList<>();
-        overallAssignedIssues = new ArrayList<>();
+        assignedIssues = new LinkedList<>();
+        assignedIssuesHistory = new ArrayList<>();
     }
 
     public boolean isAvailable() {
@@ -51,11 +52,11 @@ public class Agent {
         this.expertise = expertise;
     }
 
-    public List<Issue> getAssignedIssues() {
+    public Queue<Issue> getAssignedIssues() {
         return assignedIssues;
     }
 
-    public void setAssignedIssues(List<Issue> assignedIssues) {
+    public void setAssignedIssues(Queue<Issue> assignedIssues) {
         this.assignedIssues = assignedIssues;
     }
 
@@ -67,11 +68,11 @@ public class Agent {
         this.resolvedIssues = resolvedIssues;
     }
 
-    public List<Issue> getOverallAssignedIssues() {
-        return overallAssignedIssues;
+    public List<Issue> getAssignedIssuesHistory() {
+        return assignedIssuesHistory;
     }
 
-    public void setOverallAssignedIssues(List<Issue> overallAssignedIssues) {
-        this.overallAssignedIssues = overallAssignedIssues;
+    public void setAssignedIssuesHistory(List<Issue> assignedIssuesHistory) {
+        this.assignedIssuesHistory = assignedIssuesHistory;
     }
 }

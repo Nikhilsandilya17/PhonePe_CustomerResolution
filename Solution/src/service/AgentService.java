@@ -1,6 +1,7 @@
 package service;
 
 import enums.IssueType;
+import exceptions.ExpertAgentNotFoundException;
 import model.Agent;
 import model.Issue;
 
@@ -13,5 +14,5 @@ public interface AgentService {
 
     void viewAgentsWorkHistory();
 
-    void assignIssueToAgent(Issue issue);
+    void assignIssueToAgent(Issue issue) throws ExpertAgentNotFoundException;
 }

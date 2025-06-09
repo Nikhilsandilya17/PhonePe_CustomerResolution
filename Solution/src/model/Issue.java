@@ -3,12 +3,15 @@ package model;
 import enums.IssueStatus;
 import enums.IssueType;
 
+import java.time.LocalDateTime;
+
 public class Issue {
     private String issueId;
     private Transaction transaction;
     private String customerEmail;
     private String subject;
     private String description;
+    private LocalDateTime createdAt;
     private IssueType type;
     private IssueStatus status;
     private Agent assignedAgent;
@@ -21,7 +24,8 @@ public class Issue {
         this.type = type;
         this.subject = subject;
         this.description = description;
-        this.status = IssueStatus.WAITING;
+        this.status = IssueStatus.CREATED;
+        this.createdAt = LocalDateTime.now();
     }
 
     public String getIssueId() {
@@ -96,4 +100,19 @@ public class Issue {
         this.resolution = resolution;
     }
 
+    @Override
+    public String toString() {
+        return "Issue{" + "issueId='" + issueId + '\'' +
+                ", subject='" + subject + '\'' +
+                ", type=" + type +
+                '}';
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 }

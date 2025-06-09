@@ -2,14 +2,17 @@ package service;
 
 import enums.IssueStatus;
 import enums.IssueType;
+import exceptions.IssueNotFoundException;
 import model.Issue;
-
-import java.util.List;
 
 public interface IssueService {
     Issue createIssue(String transactionId, IssueType type, String subject, String description, String email);
-    List<Issue> getIssuesByEmail(String email);
-    List<Issue> getIssuesByIssueType(IssueType issueType);
-    void updateIssue(Issue issue, IssueStatus status, String resolution);
-    void resolveIssue(Issue issue, String resolution);
+
+    void getIssuesByEmail(String email);
+
+    void getIssuesByIssueType(IssueType issueType);
+
+    void updateIssue(String id, IssueStatus status, String resolution) throws IssueNotFoundException;
+
+    void resolveIssue(String id, String resolution) throws IssueNotFoundException;
 }
