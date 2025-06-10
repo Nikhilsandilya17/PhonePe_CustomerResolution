@@ -3,6 +3,7 @@ package constants;
 public final class ApplicationConstants {
 
     public ApplicationConstants() {
+
     }
 
     public static final String ISSUE_NOT_FOUND = "No issue exists with this id: ";
